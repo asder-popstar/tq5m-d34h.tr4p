@@ -15,6 +15,7 @@
             height: 100vh;
             margin: 0;
             text-align: center;
+            animation: flicker 3s infinite;
         }
 
         .container {
@@ -51,14 +52,52 @@
                 opacity: 1;
             }
         }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* Distorted text effect */
+        .strange-text {
+            font-size: 18px;
+            animation: distort 1.5s infinite;
+        }
+
+        @keyframes distort {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(5px); }
+            50% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="message">Not everything is as it seems, but some things never change.</div>
-    <button class="button" onclick="window.location.href='https://example.com';">Click to Proceed</button>
+    <button class="button" id="proceedButton">Click to Proceed</button>
+    <div class="strange-text" style="display: none;" id="strangeMessage">Something's not quite right...</div>
 </div>
+
+<script>
+    document.getElementById('proceedButton').addEventListener('click', function() {
+        // Change the page content with a disorienting effect
+        document.querySelector('.message').innerHTML = "Did you hear that? Was someone watching?";
+        
+        // Show a strange message after a short delay
+        setTimeout(function() {
+            document.getElementById('strangeMessage').style.display = 'block';
+        }, 2000);
+        
+        // After a few seconds, redirect the user to the next page
+        setTimeout(function() {
+            window.location.href = 'https://example.com/next-puzzle'; // Change this to the next stage URL
+        }, 5000); // Redirect after 5 seconds
+    });
+</script>
 
 </body>
 </html>
